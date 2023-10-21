@@ -92,13 +92,13 @@ Module BindConnection
     End Sub
 
     Public Sub loadDepartment()
-        sqlquery = sqlquery = "SELECT deptname from department"
+        sqlquery = "SELECT deptname from department"
 
         Try
             cmd = New MySqlCommand(sqlquery, conString)
             reader = cmd.ExecuteReader
             While reader.Read()
-                Form3.Cbodept.Items.Add(reader("department").ToString)
+                Form3.Cbodept.Items.Add(reader("deptname").ToString)
             End While
 
         Catch ex As Exception
@@ -113,7 +113,7 @@ Module BindConnection
 
     End Sub
     Public Sub loadrecord()
-        sqlquery = "select e.emplname, e.empfname, d.department, from employee e join department d on e.dept
+        sqlquery = "select e.emplname, e.empfname, d.deptname from employee e join department d on e.dept
          = d.deptid"
         adapter = New MySqlDataAdapter(sqlquery, conString)
         Try
@@ -122,11 +122,12 @@ Module BindConnection
             Form3.dgvinfo.DataSource = data
         Catch ex As Exception
             MsgBox(ex.Message)
+
         End Try
     End Sub
     Public Sub loadrec(dept As String)
-        sqlquery = "select e.emplname, e.empfname, d.department, from employee e join department d on e.dept
-         = d.deptid"
+        sqlquery = "select e.emplname, e.empfname, d.deptname from employee e join department d on
+        e.dept = d.deptid where dept = @dept"
 
         adapter = New MySqlDataAdapter(sqlquery, conString)
         adapter.SelectCommand.Parameters.AddWithValue("@dept", dept)

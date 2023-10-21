@@ -2,6 +2,7 @@
     Private Sub Form3_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dbConnect()
         loadDepartment()
+        loadrecord()
 
         With dgvinfo
             .AutoResizeColumns()
@@ -26,5 +27,10 @@
         ElseIf Cbodept.SelectedIndex = 2 Then
             loadrec("103")
         End If
+    End Sub
+
+    Private Sub btnback_Click(sender As Object, e As EventArgs) Handles btnback.Click
+        Form1.Show()
+        Me.Hide()
     End Sub
 End Class
